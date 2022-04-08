@@ -8,7 +8,7 @@ By Shoukang Hu, Xurong Xie, Mingyu Cui*, Jiajun Deng*, Shansong Liu, Jianwei Yu,
 
 ## Results
 <p align="center">
-    <img src="img/search_result.png" height="300"/>
+    <img src="img/search_result.png" height="280"/>
 </p>
 
 
