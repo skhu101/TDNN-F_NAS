@@ -237,7 +237,7 @@ bash local/chain_NAS/run_TDNN_DARTS_optimal_context_offset_bottleneckdim_Child_m
 ```
 
 Step 9:
-For RNNLM rescoring. please refer to kaldi/egs/swbd/s5c/rnnlm; For LHUC and BLHUC, please refer to [BLHUC](https://github.com/XIEXurong/kaldi_bayes_adapt).
+For RNNLM rescoring, please refer to kaldi/egs/swbd/s5c/rnnlm; for LHUC and BLHUC, please refer to [BLHUC](https://github.com/XIEXurong/kaldi_bayes_adapt).
 
 
 ### Citation
