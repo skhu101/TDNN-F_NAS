@@ -236,6 +236,10 @@ bash local/chain_NAS/run_TDNN_DARTS_optimal_context_offset_bottleneckdim_Child_m
   bash local/chain_NAS/run_TDNN_DARTS_optimal_context_offset_bottleneckdim_Child_mod_fbk.sh exp/chain_NAS/tdnn_DARTS_pipesoftmax_context_offset6_top1_bottleneckCBshare_95onehotpretrain_cvupdate_softmax_flopsconstraint_1e-1 1e-1 top 1 0 -1 2 -2 2 -2 5 -3 6 -4 5 -5 6 -6 6 -6 6 -6 5 -6 6 -6 6 -6 6 -6 6 -6 6 pipesoftmax_context_offset6_top1 exp/chain_NAS/tdnn_DARTS_context_offset7_95onehotpretrain_cvupdate_softmax_Child_Top1_fbk_40_iv_7q_sp/egs
 ```
 
+Step 9:
+For RNNLM rescoring. please refer to kaldi/egs/swbd/s5c/rnnlm; For LHUC and BLHUC, please refer to [BLHUC](https://github.com/XIEXurong/kaldi_bayes_adapt).
+
+
 ### Citation
 If you find our codes or trained models useful in your research, please consider to star our repo and cite our paper:
 
