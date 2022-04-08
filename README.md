@@ -5,6 +5,13 @@ By Shoukang Hu, Xurong Xie, Mingyu Cui*, Jiajun Deng*, Shansong Liu, Jianwei Yu,
 
 [Paper](https://arxiv.org/abs/2201.03943)
 
+
+## Results
+<p align="center">
+    <img src="img/search_result.png" height="400"/>
+</p>
+
+
 ## Getting Started
 * Install [Kaldi](https://github.com/kaldi-asr/kaldi)
 * Clone the repo:
