@@ -80,12 +80,13 @@ make -j 20
 
 Step 2: 
 
-* copy the files in steps to kaldi/egs/swbd/s5c/steps; copy the files in local/chain_NAS to kaldi/egs/swbd/s5c/local/chain_NAS
+* copy the files in steps to kaldi/egs/swbd/s5c/steps; copy the files in local/chain_NAS to kaldi/egs/swbd/s5c/local/chain_NAS. If you find some files missing, please refer to [steps](https://drive.google.com/drive/folders/1x1T9LuOm9xtQvX5uYQuJ9fUDlFszVXLw?usp=sharing) and [utils](https://drive.google.com/drive/folders/1V-uGbPPdHgPhVBCghcLRkGv4ImtAOLfg?usp=sharing).
 
 Step 3: 
 * run the factored TDNN model using the following command
 ```shell
 cd kaldi/egs/swbd/s5c
+bash run.sh
 bash local/chain/tuning/run_tdnn_7q.sh
 ```
 
@@ -237,7 +238,7 @@ bash local/chain_NAS/run_TDNN_DARTS_optimal_context_offset_bottleneckdim_Child_m
 ```
 
 Step 9:
-For RNNLM rescoring, please refer to kaldi/egs/swbd/s5c/rnnlm; for LHUC and BLHUC, please refer to [BLHUC](https://github.com/XIEXurong/kaldi_bayes_adapt).
+For RNNLM training and rescoring, please refer to kaldi/egs/swbd/s5c/rnnlm; for LHUC and BLHUC speaker adaptation, please refer to [BLHUC](https://github.com/XIEXurong/kaldi_bayes_adapt), for large RNNLM training and rescoring, please refer to local/rnnlm/run_tdnn_lstm_fbk40_mod_hasfisher_large_drop_e40.sh.
 
 
 ### Citation
