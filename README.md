@@ -284,6 +284,7 @@ bash local/chain_NAS/run_TDNN_DARTS_optimal_context_offset_bottleneckdim_Child_m
 Step 9:
 For RNNLM training and rescoring, please refer to kaldi/egs/swbd/s5c/rnnlm; for LHUC and BLHUC speaker adaptation, please refer to [BLHUC](https://github.com/XIEXurong/kaldi_bayes_adapt), for large RNNLM training and rescoring, please refer to local/rnnlm/run_tdnn_lstm_fbk40_mod_hasfisher_large_drop_e40.sh.
 
+I have also compiled the NAS codes in the following [Kaldi](https://drive.google.com/file/d/1t-erUtKuXqGSqSTLXvO2-nWoN8RQJulE/view?usp=sharing) directory.
 
 ### Citation
 If you find our codes or trained models useful in your research, please consider to star our repo and cite our paper:
