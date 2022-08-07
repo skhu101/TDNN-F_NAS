@@ -212,7 +212,7 @@ EOF
 
   mv $dir/configs/final.config $dir/configs/final.config_temp
   mv $dir/configs/ref.config $dir/configs/ref.config_temp
-  #nnet3-am-copy --binary=false $parent_path/final.mdl $parent_path/final_txt.mdl
+  nnet3-am-copy --binary=false $parent_path/final.mdl $parent_path/final_txt.mdl
   ~/anaconda3/bin/python local/chain_NAS/scripts/generate_top_list_bottleneckdim.py $parent_path $child_type $top_id $dir/configs/ 8 tdnn
   steps/nnet3/xconfig_to_configs_cal_info.py --xconfig-file $dir/configs/network.xconfig --config-dir $dir/configs/
 fi

@@ -37,6 +37,8 @@ Step 1:
 * Copy the SoftmaxFlopsComponent in nnet-simple-component.h to kaldi/src/nnet3/nnet-simple-component.h 
 * Copy the SoftmaxFlopsComponent in nnet-simple-component.cc to kaldi/src/nnet3/nnet-simple-component.cc
 
+* Copy the BatchNormTestComponent in nnet-normalize-component.h to kaldi/src/nnet3/nnet-normalize-component.h
+* Copy the BatchNormTestComponent in nnet-normalize-component.cc to kaldi/src/nnet3/nnet-normalize-component.cc
 
 * Copy the following lines to the corresponding location in kaldi/src/nnet3/nnet-component-itf.cc
 ```shell
@@ -58,9 +60,51 @@ Step 1:
   } else if (component_type == "GumbelSoftmaxFlopsComponent") {
     ans = new GumbelSoftmaxFlopsComponent();
 
+  } else if (component_type == "BatchNormTestComponent") {
+  ans = new BatchNormTestComponent();
+
 ```
 
-* Copy the kaldi/src/nnet3/nnet-utils.cc to kaldi/src/nnet3/nnet-utils.cc 
+* Copy the following lines to the corresponding location in kaldi/src/nnet3/nnet-tdnn-component.cc
+```shell
+#include <iostream>
+#include <stdio.h>
+using namespace std; 
+```
+
+* Copy the following lines to the corresponding location in kaldi/src/nnet3/nnet-utils.cc 
+```
+  } else if (directive == "set-temperature-proportion") {
+    std::string name_pattern = "*"; 
+    // name_pattern defaults to '*' if none is given.  This pattern
+    // matches names of components, not nodes.
+    config_line.GetValue("name", &name_pattern);
+    BaseFloat proportion = -1.0;
+    if (!config_line.GetValue("proportion", &proportion)) {
+      KALDI_ERR << "In edits-config, expected proportion to be set in line: "
+                << config_line.WholeLine();
+    }    
+    int32 num_temp_proportions_set = 0; 
+    for (int32 c = 0; c < nnet->NumComponents(); c++) {
+      if (NameMatchesPattern(nnet->GetComponentName(c).c_str(),
+                             name_pattern.c_str())) {
+        TdnnDARTSV3Component *tdnndartsv3component =
+           dynamic_cast<TdnnDARTSV3Component*>(nnet->GetComponent(c));
+        GumbelSoftmaxFlopsComponent *gumbelsoftmaxflopscomponent =
+           dynamic_cast<GumbelSoftmaxFlopsComponent*>(nnet->GetComponent(c));
+        if (tdnndartsv3component != NULL) {
+          tdnndartsv3component->SetTempProportion(proportion);
+          num_temp_proportions_set++;
+        } else if (gumbelsoftmaxflopscomponent != NULL) {
+          gumbelsoftmaxflopscomponent->SetTempProportion(proportion);
+          num_temp_proportions_set++;
+        }    
+      }    
+    }    
+    KALDI_LOG << "Set temp proportions for "
+              << num_temp_proportions_set << " components.";
+```
+
 
 * If you want to add the specific code, you can use the following command:
 ```shell
@@ -232,7 +276,7 @@ bash local/chain_NAS/run_TDNN_DARTS_optimal_context_offset_bottleneckdim_Child_m
 
 >For exmaple:
 ```shell
-  bash local/chain_NAS/run_TDNN_DARTS_optimal_context_offset_bottleneckdim_Child_mod_fbk.sh exp/chain_NAS/tdnn_DARTS_pipegumbel_context_offset6_top1_bottleneckCBshare_95onehotpretrain_cvupdate_gumbel_flopsconstraint_3e-1 3e-1 top 1 0 -2 2 -2 4 -5 5 -6 6 -6 5 -6 6 -6 6 -6 6 -6 6 -6 6 -6 6 -6 6 -6 6 -6 6 pipegumbel_context_offset6_top1 /project_bdda4/bdda/skhu/toolkits/kaldi/egs/swbd_wav/s5c/exp/chain_NAS/tdnn_DARTS_context_offset7_95onehotpretrain_cvupdate_gumbel_Child_Top1_fbk_40_iv_7q_sp/egs
+  bash local/chain_NAS/run_TDNN_DARTS_optimal_context_offset_bottleneckdim_Child_mod_fbk.sh exp/chain_NAS/tdnn_DARTS_pipegumbel_context_offset6_top1_bottleneckCBshare_95onehotpretrain_cvupdate_gumbel_flopsconstraint_1e-1 1e-1 top 1 0 -2 2 -2 4 -5 5 -6 6 -6 5 -6 6 -6 6 -6 6 -6 6 -6 6 -6 6 -6 6 -6 6 -6 6 pipegumbel_context_offset6_top1 exp/chain_NAS/tdnn_DARTS_context_offset7_95onehotpretrain_cvupdate_gumbel_Child_Top1_fbk_40_iv_7q_sp/egs
 
   bash local/chain_NAS/run_TDNN_DARTS_optimal_context_offset_bottleneckdim_Child_mod_fbk.sh exp/chain_NAS/tdnn_DARTS_pipesoftmax_context_offset6_top1_bottleneckCBshare_95onehotpretrain_cvupdate_softmax_flopsconstraint_1e-1 1e-1 top 1 0 -1 2 -2 2 -2 5 -3 6 -4 5 -5 6 -6 6 -6 6 -6 5 -6 6 -6 6 -6 6 -6 6 -6 6 pipesoftmax_context_offset6_top1 exp/chain_NAS/tdnn_DARTS_context_offset7_95onehotpretrain_cvupdate_softmax_Child_Top1_fbk_40_iv_7q_sp/egs
 ```
